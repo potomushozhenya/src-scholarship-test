@@ -21,6 +21,7 @@ class SparseMatrix {
 
     SparseMatrix operator*(const SparseMatrix &m);
     SparseMatrix operator^(uint32_t p);
+    double checkColumn(int &row, int&column);
 
     std::vector<std::vector<Element>> data;
 };
