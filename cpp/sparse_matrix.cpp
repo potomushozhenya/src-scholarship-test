@@ -40,14 +40,28 @@ void SparseMatrix::Print() {
     }
 }
 
+double SparseMatrix::checkColumn(int &row, int&column){
+    for (int i = 0; i < this->data[row].size(); ++i) {
+        if (this->data[row][i].index==column){
+            return this->data[row][i].value;
+        }
+        if (this->data[row][i].index>column){
+            return 0;
+        }
+    }
+}
 SparseMatrix SparseMatrix::operator*(const SparseMatrix &m) {
     SparseMatrix result;
-    // Here's your code
-    return result;
-};
-
-SparseMatrix SparseMatrix::operator^(uint32_t p) {
-    SparseMatrix result;
-    // Here's your code
+    result.data.resize(this->data.size());
+    for (int i=0;i<this->data.size(); ++i){
+        for(int j=0; j<this->data.size();++j){
+            for (int k = 0; k <this->data[i].size(); ++k) {
+                double curr = checkColumn(this->data[i][k].index,i)!=0;
+                if(curr!=0){
+                    result.data[i].push_back({k,curr*(this->data[i][k].value)});
+                }
+            }
+        }
+    }
     return result;
 }
